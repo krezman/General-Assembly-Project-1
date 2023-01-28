@@ -1,0 +1,18 @@
+#gameTitle {
+  text-align: center;
+  margin-top: 60px;
+}
+
+#window {
+  margin: 0 auto;
+  margin-top: 3%;
+  height: 600px;
+  width: 1200px;
+  border: double olivedrab 3px;
+}
+
+.brick {
+  width :150px;
+  height: 20px;
+  background-color: orange;
+}
