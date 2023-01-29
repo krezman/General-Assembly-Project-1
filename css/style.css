@@ -1,18 +1,53 @@
+body {
+  background-color: black;
+}
 #gameTitle {
   text-align: center;
   margin-top: 60px;
+  font-family: 'Righteous', cursive;
+  color: white;
+  font-size: 50px;
+  
 }
 
 #window {
-  margin: 0 auto;
-  margin-top: 3%;
+  position: absolute;
+  margin-top: 27px;
+  left: 320px;
   height: 600px;
-  width: 1200px;
-  border: double olivedrab 3px;
+  width: 1170px;
+  border: solid hotpink 5px;
+}
+
+#player {
+  position: absolute;
+  left: 10px;
+  top:10px;
+  font-family: 'Righteous', cursive;
+  font-size: 20px;
+  color: white;
+}
+#score {
+  position: absolute;
+  top: 10px;
+  left: 530px;
+  font-family: 'Righteous', cursive;
+  font-size: 20px;
+  color: white;
+}
+
+#balls {
+  position: absolute;
+  top: 10px;
+  left: 950px;
+  font-family: 'Righteous', cursive;
+  font-size: 20px;
+  color: white;
 }
 
 .brick {
+  position: absolute;
   width :150px;
-  height: 20px;
-  background-color: orange;
+  height: 30px;
+  background-color: white;
 }
