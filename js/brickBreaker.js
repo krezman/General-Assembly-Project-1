@@ -93,10 +93,47 @@ let currentPositionBall = ballBegin
 
 createBall()
 
+
+// Ball movement pattern
+
+let ballHorizontal = 7
+let ballVertical= 6
+
 const ballMovement = () => {
-  currentPositionBall[0] += 7
-  currentPositionBall[1] += 6
+  currentPositionBall[0] += ballHorizontal
+  currentPositionBall[1] += ballVertical
   createBall()
+  contactDetection()
 }
 
 setInterval(ballMovement, 25)
+
+// Ball physics
+
+const contactDetection = () => {
+  if ((currentPositionBall[0] >= 1145) || 
+      (currentPositionBall[1] >= 575)  ||
+      (currentPositionBall[0] <= 0))
+  {
+    bounce()
+  }
+}
+
+const bounce = () => {
+  if (ballHorizontal === 7 && ballVertical === 6) {
+        ballVertical = -6
+        return
+  }
+  if (ballHorizontal === 7 && ballVertical === -6) {
+        ballHorizontal = -7
+        return
+  }
+  if (ballHorizontal === -7 && ballVertical === -6) {
+        ballVertical === 6
+        return
+  }
+  if (ballHorizontal === -7 && ballVertical === 6) {
+        ballHorizontal = 7
+        return
+  }
+}
