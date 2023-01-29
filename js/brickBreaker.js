@@ -1,7 +1,8 @@
 // Targeting HTML elements
 
 const playingWindow = document.querySelector("#window")
-
+const user = document.querySelector("#user")
+const ball = document.querySelector("#playBall")
 
 // Creating the bricks that will serve as targets for the game
 
@@ -50,16 +51,14 @@ brickFactory()
 
 // Adding the user's platform
 
-const userPosition = [510, 10]
+const userPosition = [485, 20]
 let currentPosition = userPosition
 
-const movement = () => {
+const createUser = () => {
   user.style.left = currentPosition[0] + "px"
   user.style.bottom = currentPosition[1] +"px"
 }
-
-const user = document.querySelector("#user")
-movement()
+createUser()
 
 // Moving the users platform
 
@@ -67,17 +66,31 @@ movement()
 const moveUser = (e) => {
     switch(e.key) {
       case "ArrowLeft":
-        if (currentPosition[0] > 5) {
+        if (currentPosition[0] > 0) {
         currentPosition[0] -= 18
-        movement()
+        createUser()
         }
         break;
       case "ArrowRight":
         if (currentPosition[0] < 970) {
-          currentPosition[0] += 20
-          movement()
+          currentPosition[0] += 18
+          createUser()
         }
     }
 }
 
 document.addEventListener("keydown", moveUser)
+
+// Ball positioning and movement
+
+createBall = () => {
+  ball.style.left = currentPositionBall[0] + "px"
+  ball.style.bottom = currentPositionBall[1] + "px"
+}
+
+const ballBegin = [570, 40]
+let currentPositionBall = ballBegin
+
+createBall()
+
+

@@ -55,6 +55,14 @@ body {
 #user {
   position: absolute;
   width :200px;
-  height: 30px;
+  height: 15px;
+  background-color: hotpink;
+}
+
+#playBall {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  border-radius: 12.5px;
   background-color: hotpink;
 }
