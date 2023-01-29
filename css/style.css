@@ -4,8 +4,8 @@ body {
 #gameTitle {
   text-align: center;
   margin-top: 60px;
-  font-family: 'Righteous', cursive;
-  color: white;
+  font-family: 'Monoton', cursive;
+  color: hotpink;
   font-size: 50px;
   
 }
@@ -52,7 +52,7 @@ body {
   background-color: white;
 }
 
-.user {
+#user {
   position: absolute;
   width :200px;
   height: 30px;

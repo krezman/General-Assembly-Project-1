@@ -32,7 +32,7 @@ const theBricks = [
   new Brick (1005, 475)
 ]
 
-console.log(theBricks[1])
+console.log(theBricks[0])
 
 const brickFactory = () => {
   for (let i = 0; i < theBricks.length; i++) {
@@ -53,8 +53,31 @@ brickFactory()
 const userPosition = [510, 10]
 let currentPosition = userPosition
 
-const user = document.createElement("div")
-user.classList.add("user")
-user.style.left = currentPosition[0] + "px"
-user.style.bottom = currentPosition[1] +"px"
-playingWindow.appendChild(user)
+const movement = () => {
+  user.style.left = currentPosition[0] + "px"
+  user.style.bottom = currentPosition[1] +"px"
+}
+
+const user = document.querySelector("#user")
+movement()
+
+// Moving the users platform
+
+
+const moveUser = (e) => {
+    switch(e.key) {
+      case "ArrowLeft":
+        if (currentPosition[0] > 5) {
+        currentPosition[0] -= 18
+        movement()
+        }
+        break;
+      case "ArrowRight":
+        if (currentPosition[0] < 970) {
+          currentPosition[0] += 20
+          movement()
+        }
+    }
+}
+
+document.addEventListener("keydown", moveUser)
