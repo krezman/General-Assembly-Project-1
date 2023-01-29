@@ -42,7 +42,7 @@ const brickFactory = () => {
     bricks.style.left = (theBricks[i].bottomLeft[0] - 325) + "px"
     bricks.style.bottom = (theBricks[i].bottomLeft[1] + 290) + "px"
     playingWindow.appendChild(bricks)
-    console.log(bricks.getClientRects())
+    // console.log(bricks.getClientRects())
   }
 }
 
@@ -93,4 +93,10 @@ let currentPositionBall = ballBegin
 
 createBall()
 
+const ballMovement = () => {
+  currentPositionBall[0] += 7
+  currentPositionBall[1] += 6
+  createBall()
+}
 
+setInterval(ballMovement, 25)
