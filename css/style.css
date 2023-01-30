@@ -66,3 +66,19 @@ body {
   border-radius: 12.5px;
   background-color: hotpink;
 }
+
+#line {
+  position: absolute;
+  width: 1170px;
+  height: 1px;
+  background-color: white;
+  bottom: 520px
+}
+
+#vertical {
+  position: absolute;
+  width: 1px;
+  height: 600px;
+  background-color: white;
+  left: 1005px;
+}

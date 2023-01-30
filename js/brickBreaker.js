@@ -8,10 +8,10 @@ const ball = document.querySelector("#playBall")
 
 class Brick {
   constructor (leftCorner, rightCorner) {
-    this.bottomLeft = [leftCorner + 325, rightCorner - 290];
-    this.bottomRight = [leftCorner + 475, rightCorner - 290];
-    this.topLeft = [leftCorner + 325, rightCorner - 320];
-    this.topRight = [leftCorner + 475, rightCorner - 320]
+    this.bottomLeft = [leftCorner, rightCorner];
+    this.bottomRight = [leftCorner + 150, rightCorner];
+    this.topLeft = [leftCorner, rightCorner + 30];
+    this.topRight = [leftCorner + 150, rightCorner + 30]
   }
 }
 
@@ -23,24 +23,22 @@ const theBricks = [
   new Brick(675, 520),
   new Brick (840, 520),
   new Brick (1005, 520),
-  new Brick (15, 475),
-  new Brick (15, 475),
-  new Brick (180, 475),
-  new Brick (345, 475),
-  new Brick (510, 475),
-  new Brick (675, 475),
-  new Brick (840, 475),
-  new Brick (1005, 475)
+  // new Brick (15, 475),
+  // new Brick (180, 475),
+  // new Brick (345, 475),
+  // new Brick (510, 475),
+  // new Brick (675, 475),
+  // new Brick (840, 475),
+  // new Brick (1005, 475)
 ]
 
-console.log(theBricks[0])
 
 const brickFactory = () => {
   for (let i = 0; i < theBricks.length; i++) {
     const bricks = document.createElement("div")
     bricks.classList.add("brick")
-    bricks.style.left = (theBricks[i].bottomLeft[0] - 325) + "px"
-    bricks.style.bottom = (theBricks[i].bottomLeft[1] + 290) + "px"
+    bricks.style.left = theBricks[i].bottomLeft[0] + "px"
+    bricks.style.bottom = theBricks[i].bottomLeft[1] + "px"
     playingWindow.appendChild(bricks)
     // console.log(bricks.getClientRects())
   }
@@ -51,7 +49,7 @@ brickFactory()
 
 // Adding the user's platform
 
-const userPosition = [485, 20]
+const userPosition = [485,20]
 let currentPosition = userPosition
 
 const createUser = () => {
@@ -88,8 +86,9 @@ createBall = () => {
   ball.style.bottom = currentPositionBall[1] + "px"
 }
 
-const ballBegin = [570, 40]
+const ballBegin = [495, 35]
 let currentPositionBall = ballBegin
+
 
 createBall()
 
@@ -110,7 +109,18 @@ setInterval(ballMovement, 25)
 
 // Ball physics
 
+const ballDiameter = 25
+
 const contactDetection = () => {
+  for (let i = 0; i < theBricks.length; i++) {
+    if (((currentPositionBall[0] + ballDiameter) > theBricks[i].bottomLeft[0] && (currentPositionBall[0] + ballDiameter) < theBricks[i].bottomRight[0]) &&
+        ((currentPositionBall[1] + ballDiameter) > theBricks[i].bottomLeft[1] && (currentPositionBall[1] + ballDiameter) < theBricks[i].topLeft[1])) {
+          const allBricks = Array.from(document.querySelectorAll(".brick"))
+          console.log(allBricks)
+        }
+      }
+
+
   if ((currentPositionBall[0] >= 1145) || 
       (currentPositionBall[1] >= 575)  ||
       (currentPositionBall[0] <= 0))
@@ -118,6 +128,9 @@ const contactDetection = () => {
     bounce()
   }
 }
+
+
+// Ball makes contact with surface response
 
 const bounce = () => {
   if (ballHorizontal === 7 && ballVertical === 6) {
@@ -137,3 +150,22 @@ const bounce = () => {
         return
   }
 }
+
+
+// Response to the ball going be low the user's platform
+
+
+const loseBall = () => {
+  if (currentPositionBall[1] < 0) {
+      clearInterval(attemptInterval)
+      //ADD SOME WAY SCORE GETS UPDATED
+      alert("You lost a ball!")
+  }
+}
+
+attemptInterval = setInterval(loseBall, 25)
+
+// Checking to see if we can detect the bricks
+
+
+
