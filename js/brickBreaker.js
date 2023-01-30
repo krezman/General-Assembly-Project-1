@@ -116,7 +116,10 @@ const contactDetection = () => {
     if (((currentPositionBall[0] + ballDiameter) > theBricks[i].bottomLeft[0] && (currentPositionBall[0] + ballDiameter) < theBricks[i].bottomRight[0]) &&
         ((currentPositionBall[1] + ballDiameter) > theBricks[i].bottomLeft[1] && (currentPositionBall[1] + ballDiameter) < theBricks[i].topLeft[1])) {
           const allBricks = Array.from(document.querySelectorAll(".brick"))
-          console.log(allBricks)
+          allBricks[i].classList.remove("brick")
+          let brickCemetry = theBricks.splice(i, 1)
+          bounce()
+          // ADD A UPDATING SCORE
         }
       }
 
