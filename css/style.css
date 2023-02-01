@@ -39,7 +39,7 @@ body {
 #balls {
   position: absolute;
   top: 10px;
-  left: 950px;
+  right: 100px;
   font-family: 'Righteous', cursive;
   font-size: 20px;
   color: white;
@@ -82,4 +82,31 @@ body {
   height: 600px;
   background-color: white;
   left: 1005px;
+}
+
+#scoreNum {
+  position: absolute;
+  top: 2px;
+  left: 80px;
+  font-family: 'Righteous', cursive;
+  font-size: 20px;
+  color: white;
+}
+
+#playerNum {
+  position: absolute;
+  top: 2px;
+  left: 40px;
+  font-family: 'Righteous', cursive;
+  font-size: 20px;
+  color: white;
+}
+
+#ballsNum {
+  position: absolute;
+  top: 2px;
+  right: 0px;
+  font-family: 'Righteous', cursive;
+  font-size: 20px;
+  color: white;
 }

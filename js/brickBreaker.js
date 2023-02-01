@@ -3,6 +3,8 @@
 const playingWindow = document.querySelector("#window")
 const user = document.querySelector("#user")
 const ball = document.querySelector("#playBall")
+const scoreNumber = document.querySelector("#scoreNum")
+const ballNumber = document.querySelector("#ballsNum")
 
 // Creating the bricks that will serve as targets for the game
 
@@ -95,8 +97,10 @@ createBall()
 
 // Ball movement pattern
 
-let ballHorizontal = -7
-let ballVertical= 6
+let attempt
+
+let ballHorizontal = 5
+let ballVertical= 4
 
 const ballMovement = () => {
   currentPositionBall[0] += ballHorizontal
@@ -107,9 +111,10 @@ const ballMovement = () => {
   userDefense()
 }
 
-setInterval(ballMovement, 25)
+attempt = setInterval(ballMovement, 15)
 
 // Ball physics
+
 
 const ballDiameter = 25
 
@@ -118,13 +123,13 @@ const contactDetection = () => {
 /// Checking for brick contact and removal
 
   for (let i = 0; i < theBricks.length; i++) {
-    if (((currentPositionBall[0] + ballDiameter) > theBricks[i].bottomLeft[0] && (currentPositionBall[0] + ballDiameter) < theBricks[i].bottomRight[0]) &&
-        ((currentPositionBall[1] + ballDiameter) > theBricks[i].bottomLeft[1] && (currentPositionBall[1] + ballDiameter) < theBricks[i].topLeft[1])) {
+       if (((currentPositionBall[0] + ballDiameter) > theBricks[i].bottomLeft[0] && (currentPositionBall[0] + ballDiameter) < theBricks[i].bottomRight[0]) &&
+          ((currentPositionBall[1] + ballDiameter) > theBricks[i].bottomLeft[1] && (currentPositionBall[1] + ballDiameter) < theBricks[i].topLeft[1])) {
           const allBricks = Array.from(document.querySelectorAll(".brick"))
           allBricks[i].classList.remove("brick")
           let brickCemetry = theBricks.splice(i, 1)
           bounce()
-          // ADD A UPDATING SCORE
+          pointsGained()
         }
       }
 
@@ -149,20 +154,20 @@ const userDefense = () => {
 // Ball makes contact with surface response
 
 const bounce = () => {
-  if (ballHorizontal === 7 && ballVertical === 6) {
-        ballVertical = -6
+  if (ballHorizontal === 5 && ballVertical === 4) {
+        ballVertical *= -1
         return
   }
-  if (ballHorizontal === 7 && ballVertical === -6) {
-        ballHorizontal = -7
+  if (ballHorizontal === 5 && ballVertical === -4) {
+        ballHorizontal *= -1
         return
   }
-  if (ballHorizontal === -7 && ballVertical === -6) {
-        ballVertical = 6
+  if (ballHorizontal === -5 && ballVertical === -4) {
+        ballVertical *= -1
         return
   }
-  if (ballHorizontal === -7 && ballVertical === 6) {
-        ballHorizontal = 7
+  if (ballHorizontal === -5 && ballVertical === 4) {
+        ballHorizontal *= -1
         return
   }
 }
@@ -170,17 +175,37 @@ const bounce = () => {
 
 // Response to the ball going be low the user's platform
 
+ballNumber.innerHTML = 3
 
 const loseBall = () => {
   if (currentPositionBall[1] < 0) {
       clearInterval(attemptInterval)
-      //ADD SOME WAY SCORE GETS UPDATED
-      alert("You lost a ball!")
+      clearInterval(attempt)
+      ballsLeft = 3
+      ballsLeft--
+      ballNumber.innerHTML = ballsLeft
   }
 }
 
 attemptInterval = setInterval(loseBall, 25)
 
+// Adding points to the board
+score = 0
+
+const pointsGained = () => {
+  score ++
+  scoreNumber.innerHTML = score
+}
+
+// Player class
+
+class Player  {
+  constructor (number, score, balls) {
+    this.number = number;
+    this.score = 0;
+    this.balls = 3
+  }
+}
 
 
 
