@@ -23,13 +23,13 @@ const theBricks = [
   new Brick(675, 520),
   new Brick (840, 520),
   new Brick (1005, 520),
-  // new Brick (15, 475),
-  // new Brick (180, 475),
-  // new Brick (345, 475),
-  // new Brick (510, 475),
-  // new Brick (675, 475),
-  // new Brick (840, 475),
-  // new Brick (1005, 475)
+  new Brick (15, 475),
+  new Brick (180, 475),
+  new Brick (345, 475),
+  new Brick (510, 475),
+  new Brick (675, 475),
+  new Brick (840, 475),
+  new Brick (1005, 475)
 ]
 
 
@@ -95,7 +95,7 @@ createBall()
 
 // Ball movement pattern
 
-let ballHorizontal = 7
+let ballHorizontal = -7
 let ballVertical= 6
 
 const ballMovement = () => {
@@ -103,6 +103,8 @@ const ballMovement = () => {
   currentPositionBall[1] += ballVertical
   createBall()
   contactDetection()
+  wallsReact()
+  userDefense()
 }
 
 setInterval(ballMovement, 25)
@@ -112,6 +114,9 @@ setInterval(ballMovement, 25)
 const ballDiameter = 25
 
 const contactDetection = () => {
+
+/// Checking for brick contact and removal
+
   for (let i = 0; i < theBricks.length; i++) {
     if (((currentPositionBall[0] + ballDiameter) > theBricks[i].bottomLeft[0] && (currentPositionBall[0] + ballDiameter) < theBricks[i].bottomRight[0]) &&
         ((currentPositionBall[1] + ballDiameter) > theBricks[i].bottomLeft[1] && (currentPositionBall[1] + ballDiameter) < theBricks[i].topLeft[1])) {
@@ -123,12 +128,20 @@ const contactDetection = () => {
         }
       }
 
+}
 
+const wallsReact = () => {
   if ((currentPositionBall[0] >= 1145) || 
-      (currentPositionBall[1] >= 575)  ||
-      (currentPositionBall[0] <= 0))
-  {
-    bounce()
+  (currentPositionBall[1] >= 575)  ||
+  (currentPositionBall[0] <= 0)) {
+bounce()
+}
+}
+
+const userDefense = () => {
+  if ((currentPositionBall[0] > currentPosition[0] && currentPositionBall[0] < currentPosition[0] + 200) &&
+      (currentPositionBall[1] > currentPosition[1] && currentPositionBall[1] < currentPosition[1] + 16)) {
+      bounce()
   }
 }
 
@@ -145,7 +158,7 @@ const bounce = () => {
         return
   }
   if (ballHorizontal === -7 && ballVertical === -6) {
-        ballVertical === 6
+        ballVertical = 6
         return
   }
   if (ballHorizontal === -7 && ballVertical === 6) {
@@ -168,7 +181,7 @@ const loseBall = () => {
 
 attemptInterval = setInterval(loseBall, 25)
 
-// Checking to see if we can detect the bricks
+
 
 
 

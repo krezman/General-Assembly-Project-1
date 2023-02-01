@@ -57,6 +57,7 @@ body {
   width :200px;
   height: 15px;
   background-color: hotpink;
+  border: 1px solid white;
 }
 
 #playBall {
