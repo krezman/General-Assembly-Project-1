@@ -60,7 +60,7 @@ body {
   border: 1px solid white;
 }
 
-#playBall {
+.playBall {
   position: absolute;
   width: 25px;
   height: 25px;

@@ -2,7 +2,7 @@
 
 const playingWindow = document.querySelector("#window")
 const user = document.querySelector("#user")
-const ball = document.querySelector("#playBall")
+const ball = document.querySelector(".playBall")
 const scoreNumber = document.querySelector("#scoreNum")
 const ballNumber = document.querySelector("#ballsNum")
 
@@ -175,6 +175,7 @@ const bounce = () => {
 
 // Response to the ball going be low the user's platform
 
+
 ballNumber.innerHTML = 3
 
 const loseBall = () => {
@@ -184,10 +185,25 @@ const loseBall = () => {
       ballsLeft = 3
       ballsLeft--
       ballNumber.innerHTML = ballsLeft
+      removeBall()
   }
 }
 
-attemptInterval = setInterval(loseBall, 25)
+attemptInterval = setInterval(loseBall, 10)
+
+const removeBall = () => {
+  ball.classList.remove("playBall")
+}
+
+// const launchBall = (e) => {
+//   switch(e.key) {
+//     case "Space":
+//     ball.classList.add("playBall")
+//     ballMovement()
+//     }
+// }
+
+// document.addEventListener("keydown", launchBall())
 
 // Adding points to the board
 score = 0
