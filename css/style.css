@@ -110,3 +110,9 @@ body {
   font-size: 20px;
   color: white;
 }
+
+#newBall {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+}

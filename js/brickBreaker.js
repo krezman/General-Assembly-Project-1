@@ -5,6 +5,7 @@ const user = document.querySelector("#user")
 const ball = document.querySelector(".playBall")
 const scoreNumber = document.querySelector("#scoreNum")
 const ballNumber = document.querySelector("#ballsNum")
+const launchBtn = document.querySelector("#newBall")
 
 // Creating the bricks that will serve as targets for the game
 
@@ -83,33 +84,58 @@ document.addEventListener("keydown", moveUser)
 
 // Ball positioning and movement
 
-createBall = () => {
-  ball.style.left = currentPositionBall[0] + "px"
-  ball.style.bottom = currentPositionBall[1] + "px"
-}
+// createBall = () => {
+//   console.log("creat ball")
+//   ball.style.left = currentPositionBall[0] + "px"
+//   ball.style.bottom = currentPositionBall[1] + "px"
+// }
 
-const ballBegin = [495, 35]
+
+const ballBegin = [495, 40]
 let currentPositionBall = ballBegin
 
+// createBall()
 
-createBall()
+
 
 
 // Ball movement pattern
 
-let attempt
+
+// const ballMovement = () => {
+  // const ball = document.querySelector(".playBall");
+  // const ballBegin = [495, 40];
+  // attempt =setInterval(frame, 15);
+  // let frame = () => {
+    // if (currentPositionBall[1] < 0) {
+      // clearInterval(attempt);
+    // } else {
+      // ballBegin++
+      // ball.style.left = currentPositionBall[0] + "px"
+      // ball.style.bottom = currentPositionBall[1] + "px"
+      // contactDetection()
+    // }
+  // }
+// }
+
 
 let ballHorizontal = 5
 let ballVertical= 4
 
+
+let attempt 
+
 const ballMovement = () => {
+  console.log("movement")
+  ball.style.left = currentPositionBall[0] + "px"
+  ball.style.bottom = currentPositionBall[1] + "px"
   currentPositionBall[0] += ballHorizontal
   currentPositionBall[1] += ballVertical
-  createBall()
   contactDetection()
-  wallsReact()
-  userDefense()
 }
+
+
+
 
 attempt = setInterval(ballMovement, 15)
 
@@ -132,41 +158,50 @@ const contactDetection = () => {
           pointsGained()
         }
       }
-
-}
-
-const wallsReact = () => {
-  if ((currentPositionBall[0] >= 1145) || 
-  (currentPositionBall[1] >= 575)  ||
-  (currentPositionBall[0] <= 0)) {
-bounce()
-}
-}
-
-const userDefense = () => {
-  if ((currentPositionBall[0] > currentPosition[0] && currentPositionBall[0] < currentPosition[0] + 200) &&
+      if ((currentPositionBall[0] >= 1145) || 
+          (currentPositionBall[1] >= 575)  ||
+          (currentPositionBall[0] <= 0)) {
+        bounce()
+      }
+      if ((currentPositionBall[0] > currentPosition[0] && currentPositionBall[0] < currentPosition[0] + 200) &&
       (currentPositionBall[1] > currentPosition[1] && currentPositionBall[1] < currentPosition[1] + 16)) {
       bounce()
   }
+
 }
+
+// const wallsReact = () => {
+//   if ((currentPositionBall[0] >= 1145) || 
+//   (currentPositionBall[1] >= 575)  ||
+//   (currentPositionBall[0] <= 0)) {
+// bounce()
+// }
+// }
+
+// const userDefense = () => {
+//   if ((currentPositionBall[0] > currentPosition[0] && currentPositionBall[0] < currentPosition[0] + 200) &&
+//       (currentPositionBall[1] > currentPosition[1] && currentPositionBall[1] < currentPosition[1] + 16)) {
+//       bounce()
+//   }
+// }
 
 
 // Ball makes contact with surface response
 
 const bounce = () => {
-  if (ballHorizontal === 5 && ballVertical === 4) {
+  if ((ballHorizontal === 5 && ballVertical === 4)) {
         ballVertical *= -1
         return
   }
-  if (ballHorizontal === 5 && ballVertical === -4) {
+  if ((ballHorizontal === 5 && ballVertical === -4)) {
         ballHorizontal *= -1
         return
   }
-  if (ballHorizontal === -5 && ballVertical === -4) {
+  if ((ballHorizontal === -5 && ballVertical === -4)) {
         ballVertical *= -1
         return
   }
-  if (ballHorizontal === -5 && ballVertical === 4) {
+  if ((ballHorizontal === -5 && ballVertical === 4)) {
         ballHorizontal *= -1
         return
   }
@@ -176,42 +211,38 @@ const bounce = () => {
 // Response to the ball going be low the user's platform
 
 
-ballNumber.innerHTML = 3
+ballNumber.innerHTML = 2
+ballsLeft = 2
+
+let losing
+
 
 const loseBall = () => {
+  console.log("lose ball")
   if (currentPositionBall[1] < 0) {
-      clearInterval(attemptInterval)
-      clearInterval(attempt)
-      ballsLeft = 3
-      ballsLeft--
-      ballNumber.innerHTML = ballsLeft
-      removeBall()
+    ballHorizontal = 0
+    ballVertical = 0
+    clearInterval(losing)
+    clearInterval(attempt)
+    ball.classList.remove("playBall")
+  }
+  if (currentPositionBall[1] < 0 && ballsLeft === 0) {
+    alert("You lose!")
   }
 }
 
-attemptInterval = setInterval(loseBall, 10)
+losing = setInterval(loseBall, 250)
 
-const removeBall = () => {
-  ball.classList.remove("playBall")
-}
 
-// const launchBall = (e) => {
-//   switch(e.key) {
-//     case "Space":
-//     ball.classList.add("playBall")
-//     ballMovement()
-//     }
-// }
-
-// document.addEventListener("keydown", launchBall())
 
 // Adding points to the board
 score = 0
 
 const pointsGained = () => {
-  score ++
+  score += 100
   scoreNumber.innerHTML = score
 }
+
 
 // Player class
 
@@ -224,5 +255,22 @@ class Player  {
 }
 
 
+// Restarting the Ball 
 
 
+
+const resetBall = () => {
+  console.log("reset ball")
+  ballHorizontal = 5
+  ballVertical = 4
+  ball.classList.add("playBall")
+  currentPosition = [485, 20]
+    currentPositionBall = [495, 50]
+    setInterval(ballMovement, 15)
+    setInterval(loseBall, 250)
+    ballsLeft--
+    ballNumber.innerHTML = ballsLeft
+}
+
+
+launchBtn.addEventListener("click", resetBall)
