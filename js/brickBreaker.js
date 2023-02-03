@@ -3,10 +3,14 @@
 const playingWindow = document.querySelector("#window")
 const user = document.querySelector("#user")
 const ball = document.querySelector(".playBall")
+const playerNumber = document.querySelector("#playerNum")
 const scoreNumber = document.querySelector("#scoreNum")
 const ballNumber = document.querySelector("#ballsNum")
 const launchBtn = document.querySelector("#newBall")
 const beginBtn = document.querySelector("#Begin")
+
+let newName = prompt("Who is playing?")
+playerNumber.innerHTML = newName
 
 // Creating the bricks that will serve as targets for the game
 
