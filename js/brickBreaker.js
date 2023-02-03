@@ -6,6 +6,7 @@ const ball = document.querySelector(".playBall")
 const scoreNumber = document.querySelector("#scoreNum")
 const ballNumber = document.querySelector("#ballsNum")
 const launchBtn = document.querySelector("#newBall")
+const beginBtn = document.querySelector("#Begin")
 
 // Creating the bricks that will serve as targets for the game
 
@@ -101,24 +102,6 @@ let currentPositionBall = ballBegin
 
 // Ball movement pattern
 
-
-// const ballMovement = () => {
-  // const ball = document.querySelector(".playBall");
-  // const ballBegin = [495, 40];
-  // attempt =setInterval(frame, 15);
-  // let frame = () => {
-    // if (currentPositionBall[1] < 0) {
-      // clearInterval(attempt);
-    // } else {
-      // ballBegin++
-      // ball.style.left = currentPositionBall[0] + "px"
-      // ball.style.bottom = currentPositionBall[1] + "px"
-      // contactDetection()
-    // }
-  // }
-// }
-
-
 let ballHorizontal = 5
 let ballVertical= 4
 
@@ -132,12 +115,12 @@ const ballMovement = () => {
   currentPositionBall[0] += ballHorizontal
   currentPositionBall[1] += ballVertical
   contactDetection()
+  //wallsReact()
+  //userDefense()
 }
 
 
-
-
-attempt = setInterval(ballMovement, 15)
+//// attempt = setInterval(ballMovement, 15)
 
 // Ball physics
 
@@ -241,6 +224,10 @@ score = 0
 const pointsGained = () => {
   score += 100
   scoreNumber.innerHTML = score
+  if (score === 1400) {
+    console.log("You win!")
+    brickFactory()
+  }
 }
 
 
@@ -254,9 +241,20 @@ class Player  {
   }
 }
 
+// Starting the game
+
+const startGame = () => {
+  attempt = setInterval(ballMovement, 15)
+  beginBtn.style.display = "none"
+  launchBtn.style.display = "block"
+}
+
+beginBtn.addEventListener("click", startGame)
+
+
+
 
 // Restarting the Ball 
-
 
 
 const resetBall = () => {
@@ -266,11 +264,13 @@ const resetBall = () => {
   ball.classList.add("playBall")
   currentPosition = [485, 20]
     currentPositionBall = [495, 50]
-    setInterval(ballMovement, 15)
-    setInterval(loseBall, 250)
+    attempt = setInterval(ballMovement, 15)
+    losing = setInterval(loseBall, 250)
     ballsLeft--
     ballNumber.innerHTML = ballsLeft
 }
 
 
 launchBtn.addEventListener("click", resetBall)
+
+
