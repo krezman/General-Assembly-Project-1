@@ -221,14 +221,14 @@ losing = setInterval(loseBall, 250)
 // Adding points to the board
 score = 0
 
-const pointsGained = () => {
-  score += 100
-  scoreNumber.innerHTML = score
-  if (score === 1400) {
-    console.log("You win!")
-    brickFactory()
-  }
-}
+// const pointsGained = () => {
+//   score += 100
+//   scoreNumber.innerHTML = score
+//   if (score === 1400) {
+//     console.log("You win!")
+//     brickFactory2()
+//   }
+// }
 
 
 // Player class
@@ -256,8 +256,22 @@ beginBtn.addEventListener("click", startGame)
 
 // Restarting the Ball 
 
+let levelTwoTrigger = false
+
 
 const resetBall = () => {
+  if (levelTwoTrigger = true) {
+    console.log("reset ball")
+  ballHorizontal = 5
+  ballVertical = 4
+  ball.classList.add("playBall")
+  currentPosition = [485, 20]
+    currentPositionBall = [495, 50]
+    attempt = setInterval(ballMovement2, 15)
+    losing = setInterval(loseBall, 250)
+    ballsLeft--
+    ballNumber.innerHTML = ballsLeft
+  } else {
   console.log("reset ball")
   ballHorizontal = 5
   ballVertical = 4
@@ -268,9 +282,106 @@ const resetBall = () => {
     losing = setInterval(loseBall, 250)
     ballsLeft--
     ballNumber.innerHTML = ballsLeft
+  }
 }
 
 
 launchBtn.addEventListener("click", resetBall)
 
 
+/// LEVEL 2
+
+const theBricks2 = [
+  new Brick(15, 520),
+  new Brick(180, 520),
+  new Brick(345, 520),
+  new Brick(510, 520),
+  new Brick(675, 520),
+  new Brick (840, 520),
+  new Brick (1005, 520),
+  new Brick (15, 475),
+  new Brick (180, 475),
+  new Brick (345, 475),
+  new Brick (510, 475),
+  new Brick (675, 475),
+  new Brick (840, 475),
+  new Brick (1005, 475),
+  new Brick (15, 430),
+  new Brick (180, 430),
+  new Brick (345, 430),
+  new Brick (510, 430),
+  new Brick (675, 430),
+  new Brick (840, 430),
+  new Brick (1005, 430)
+]
+
+
+const brickFactory2 = () => {
+  for (let i = 0; i < theBricks2.length; i++) {
+    const bricks = document.createElement("div")
+    bricks.classList.add("brick")
+    bricks.style.left = theBricks2[i].bottomLeft[0] + "px"
+    bricks.style.bottom = theBricks2[i].bottomLeft[1] + "px"
+    playingWindow.appendChild(bricks)
+    // console.log(bricks.getClientRects())
+  }
+}
+
+const pointsGained = () => {
+  score += 100
+  scoreNumber.innerHTML = score
+  if (score === 1400) {
+    console.log("You win!")
+    clearInterval(attempt)
+    ball.classList.remove("playBall")
+    brickFactory2()
+    levelTwo()
+  }
+}
+
+const contactDetection2 = () => {
+
+  /// Checking for brick contact and removal
+  
+    for (let i = 0; i < theBricks2.length; i++) {
+         if (((currentPositionBall[0] + ballDiameter) > theBricks2[i].bottomLeft[0] && (currentPositionBall[0] + ballDiameter) < theBricks2[i].bottomRight[0]) &&
+            ((currentPositionBall[1] + ballDiameter) > theBricks2[i].bottomLeft[1] && (currentPositionBall[1] + ballDiameter) < theBricks2[i].topLeft[1])) {
+            const allBricks = Array.from(document.querySelectorAll(".brick"))
+            allBricks[i].classList.remove("brick")
+            let brickCemetry2 = theBricks2.splice(i, 1)
+            bounce()
+            pointsGained()
+          }
+        }
+        if ((currentPositionBall[0] >= 1145) || 
+            (currentPositionBall[1] >= 575)  ||
+            (currentPositionBall[0] <= 0)) {
+          bounce()
+        }
+        if ((currentPositionBall[0] > currentPosition[0] && currentPositionBall[0] < currentPosition[0] + 200) &&
+        (currentPositionBall[1] > currentPosition[1] && currentPositionBall[1] < currentPosition[1] + 16)) {
+        bounce()
+    }
+  }
+
+  const ballMovement2 = () => {
+    console.log("level 2")
+    ball.style.left = currentPositionBall[0] + "px"
+    ball.style.bottom = currentPositionBall[1] + "px"
+    currentPositionBall[0] += ballHorizontal
+    currentPositionBall[1] += ballVertical
+    contactDetection2()
+    //wallsReact()
+    //userDefense()
+  }
+
+
+  const levelTwo = () => {
+    ballHorizontal = 5
+  ballVertical = 4
+  ball.classList.add("playBall")
+  currentPosition = [485, 20]
+    currentPositionBall = [495, 50]
+    attempt = setInterval(ballMovement2, 15)
+    levelTwoTrigger = true
+  }
