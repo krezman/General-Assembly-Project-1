@@ -146,3 +146,37 @@ body {
                     0 0 80px ,
                     0 0 10px 0 hotpink inset;
 }
+
+#winner {
+  display: none;
+  position: absolute;
+  bottom: 220px;
+  left: 360px;
+  color: #fcf942;
+  font-family: 'Monoton', cursive;
+  font-size: 85px;
+  animation: neon1 1.5s ease-in-out infinite alternate;
+}
+
+#loser {
+  display: none;
+  position: absolute;
+  bottom: 190px;
+  left: 410px;
+  color: #fcf942;
+  font-family: 'Monoton', cursive;
+  font-size: 85px;
+  animation: neon1 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes neon1 {
+  from {
+    text-shadow: 0 0 10px #f71905, 0 0 10px #f71905, 0 0 30px #f71905, 0 0 40px #ab180a,
+      0 0 30px #ab180a, 0 0 30px #ab180a, 0 0 100px #ab180a, 0 0 100px #ab180a;
+  }
+  to {
+    text-shadow: 0 0 5px #f71905, 0 0 10px #f71905, 0 0 15px #f71905, 0 0 20px #ab180a,
+      0 0 15px #ab180a, 0 0 40px #ab180a, 0 0 50px #ab180a, 0 0 45px #ab180a;
+  }
+}
+

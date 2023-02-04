@@ -8,6 +8,9 @@ const scoreNumber = document.querySelector("#scoreNum")
 const ballNumber = document.querySelector("#ballsNum")
 const launchBtn = document.querySelector("#newBall")
 const beginBtn = document.querySelector("#Begin")
+const winningText = document.querySelector("#winner")
+const loserText = document.querySelector("#loser")
+
 
 let newName = prompt("Who is playing?")
 playerNumber.innerHTML = newName
@@ -129,7 +132,9 @@ const contactDetection = () => {
 
   for (let i = 0; i < theBricks.length; i++) {
        if (((currentPositionBall[0] + ballDiameter) > theBricks[i].bottomLeft[0] && (currentPositionBall[0] + ballDiameter) < theBricks[i].bottomRight[0]) &&
-          ((currentPositionBall[1] + ballDiameter) > theBricks[i].bottomLeft[1] && (currentPositionBall[1] + ballDiameter) < theBricks[i].topLeft[1])) {
+          ((currentPositionBall[1] + ballDiameter) > theBricks[i].bottomLeft[1] && (currentPositionBall[1] + ballDiameter) < theBricks[i].topLeft[1]) &&
+          ((currentPositionBall[0] + ballDiameter) > theBricks[i].topLeft[0] && (currentPositionBall[0] + ballDiameter) < theBricks[i].topRight[0]) &&
+          ((currentPositionBall[1] + ballDiameter) > theBricks[i].bottomRight[1] && (currentPositionBall[1] + ballDiameter) < theBricks[i].topRight[1])) {
           const allBricks = Array.from(document.querySelectorAll(".brick"))
           allBricks[i].classList.remove("brick")
           let brickCemetry = theBricks.splice(i, 1)
@@ -207,22 +212,27 @@ const resetBall = () => {
     ballVertical = 4
     ball.classList.add("playBall")
     currentPosition = [485, 20]
+    createUser()
     currentPositionBall = [495, 50]
     attempt = setInterval(ballMovement, 15)
     losing = setInterval(loseBall, 250)
     ballsLeft--
     ballNumber.innerHTML = ballsLeft
+    return
+
   } else if (theBricks.length === 0) {
     launchBtn.style.display = "none"
       ballHorizontal = 5
       ballVertical = 4
       ball.classList.add("playBall")
       currentPosition = [485, 20]
+      createUser()
       currentPositionBall = [495, 50]
       attempt2 = setInterval(ballMovement2, 15)
       losing = setInterval(loseBall, 250)
       ballsLeft--
       ballNumber.innerHTML = ballsLeft
+      return
     }
 }
 
@@ -279,8 +289,11 @@ const pointsGained = () => {
     levelTwo()
   }
   if (score === 3500) {
+    ballVertical = 0
+    ballHorizontal = 0
     alert("You did it " + newName + ", You beat the game!!")
     ball.classList.remove("playBall")
+    winningText.style.display = "block"
   }
 }
 
@@ -290,7 +303,9 @@ const contactDetection2 = () => {
   
     for (let i = 0; i < theBricks2.length; i++) {
          if (((currentPositionBall[0] + ballDiameter) > theBricks2[i].bottomLeft[0] && (currentPositionBall[0] + ballDiameter) < theBricks2[i].bottomRight[0]) &&
-            ((currentPositionBall[1] + ballDiameter) > theBricks2[i].bottomLeft[1] && (currentPositionBall[1] + ballDiameter) < theBricks2[i].topLeft[1])) {
+         ((currentPositionBall[1] + ballDiameter) > theBricks2[i].bottomLeft[1] && (currentPositionBall[1] + ballDiameter) < theBricks2[i].topLeft[1]) &&
+         ((currentPositionBall[0] + ballDiameter) > theBricks2[i].topLeft[0] && (currentPositionBall[0] + ballDiameter) < theBricks2[i].topRight[0]) &&
+         ((currentPositionBall[1] + ballDiameter) > theBricks2[i].bottomRight[1] && (currentPositionBall[1] + ballDiameter) < theBricks2[i].topRight[1])) {
             const allBricks = Array.from(document.querySelectorAll(".brick"))
             allBricks[i].classList.remove("brick")
             let brickCemetry2 = theBricks2.splice(i, 1)
@@ -321,9 +336,10 @@ const contactDetection2 = () => {
 
   const levelTwo = () => {
     ballHorizontal = 5
-  ballVertical = 4
-  ball.classList.add("playBall")
-  currentPosition = [485, 20]
+    ballVertical = 4
+    ball.classList.add("playBall")
+    currentPosition = [485, 20]
+    createUser()
     currentPositionBall = [495, 50]
     attempt2 = setInterval(ballMovement2, 15)
   }
@@ -344,12 +360,16 @@ const loseBall = () => {
     clearInterval(losing)
     ball.classList.remove("playBall")
     alert("You lose at level 1 " + newName + "!")
+    loserText.style.display = "block"
+    return
 
   } else if (currentPositionBall[1] < 0 && ballsLeft === 0) {
     clearInterval(attempt2)
     clearInterval(losing)
     ball.classList.remove("playBall")
     alert("You lose at level 2 " + newName + "!")
+    loserText.style.display = "block"
+    return
 
 
   } else if (currentPositionBall[1] < 0 && theBricks.length > 0) {
@@ -359,6 +379,7 @@ const loseBall = () => {
     clearInterval(losing)
     clearInterval(attempt)
     ball.classList.remove("playBall")
+    return
 
 
   } else if (currentPositionBall[1] < 0 && theBricks.length === 0) {
@@ -368,6 +389,7 @@ const loseBall = () => {
     clearInterval(losing)
     clearInterval(attempt2)
     ball.classList.remove("playBall")
+    return
   } 
 
 }
