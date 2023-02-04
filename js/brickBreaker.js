@@ -124,7 +124,7 @@ const ballMovement = () => {
 // Ball physics No. 1
 
 
-const ballDiameter = 25
+const ballDiameter = 22
 
 const contactDetection = () => {
 
@@ -291,7 +291,7 @@ const pointsGained = () => {
   if (score === 3500) {
     ballVertical = 0
     ballHorizontal = 0
-    alert("You did it " + newName + ", You beat the game!!")
+    // alert("You did it " + newName + ", You beat the game!!")
     ball.classList.remove("playBall")
     winningText.style.display = "block"
   }
@@ -359,7 +359,7 @@ const loseBall = () => {
     clearInterval(attempt)
     clearInterval(losing)
     ball.classList.remove("playBall")
-    alert("You lose at level 1 " + newName + "!")
+    // alert("You lose at level 1 " + newName + "!")
     loserText.style.display = "block"
     return
 
@@ -367,7 +367,7 @@ const loseBall = () => {
     clearInterval(attempt2)
     clearInterval(losing)
     ball.classList.remove("playBall")
-    alert("You lose at level 2 " + newName + "!")
+    // alert("You lose at level 2 " + newName + "!")
     loserText.style.display = "block"
     return
 
