@@ -12,6 +12,8 @@ const beginBtn = document.querySelector("#Begin")
 let newName = prompt("Who is playing?")
 playerNumber.innerHTML = newName
 
+alert("Welcome to BRICK BREAKER " + newName + "! You can use the left and right arrow keys to move your platform at the bottom of the screen from left to right in order to prevent the ball from going below it. You will have a total of 3 balls to beat the game, GOODLUCK!")
+
 // Creating the bricks that will serve as targets for the game
 
 class Brick {
@@ -89,28 +91,21 @@ document.addEventListener("keydown", moveUser)
 
 // Ball positioning and movement
 
-// createBall = () => {
-//   console.log("creat ball")
-//   ball.style.left = currentPositionBall[0] + "px"
-//   ball.style.bottom = currentPositionBall[1] + "px"
-// }
-
 
 const ballBegin = [495, 40]
 let currentPositionBall = ballBegin
 
-// createBall()
 
 
-
-
-// Ball movement pattern
+// Ball movement pattern No. 1
 
 let ballHorizontal = 5
 let ballVertical= 4
 
 
 let attempt 
+
+let attempt2
 
 const ballMovement = () => {
   console.log("Level 1 movement")
@@ -119,14 +114,11 @@ const ballMovement = () => {
   currentPositionBall[0] += ballHorizontal
   currentPositionBall[1] += ballVertical
   contactDetection()
-  //wallsReact()
-  //userDefense()
 }
 
 
-//// attempt = setInterval(ballMovement, 15)
 
-// Ball physics
+// Ball physics No. 1
 
 
 const ballDiameter = 25
@@ -157,20 +149,6 @@ const contactDetection = () => {
 
 }
 
-// const wallsReact = () => {
-//   if ((currentPositionBall[0] >= 1145) || 
-//   (currentPositionBall[1] >= 575)  ||
-//   (currentPositionBall[0] <= 0)) {
-// bounce()
-// }
-// }
-
-// const userDefense = () => {
-//   if ((currentPositionBall[0] > currentPosition[0] && currentPositionBall[0] < currentPosition[0] + 200) &&
-//       (currentPositionBall[1] > currentPosition[1] && currentPositionBall[1] < currentPosition[1] + 16)) {
-//       bounce()
-//   }
-// }
 
 
 // Ball makes contact with surface response
@@ -195,54 +173,15 @@ const bounce = () => {
 }
 
 
-// Response to the ball going be low the user's platform
 
 ballNumber.innerHTML = 2
 ballsLeft = 2
-
-// let losing
-
-
-// const loseBall = () => {
-//   console.log("lose ball")
-//   if (currentPositionBall[1] < 0) {
-//     ballHorizontal = 0
-//     ballVertical = 0
-//     clearInterval(losing)
-//     clearInterval(attempt)
-//     ball.classList.remove("playBall")
-//   } else if (currentPositionBall[1] < 0 && theBricks.length === 0) {
-//     ballHorizontal = 0
-//     ballVertical = 0
-//     clearInterval(losing)
-//     clearInterval(attempt2)
-//     ball.classList.remove("playBall")
-//   } else if (currentPositionBall[1] < 0 && ballsLeft === 0 && theBricks.length > 1) {
-//     clearInterval(attempt)
-//     clearInterval(losing)
-//     alert("You lose!")
-//   } else if (currentPositionBall[1] < 0 && ballsLeft === 0 && theBricks2.length > 1) {
-//     clearInterval(attempt2)
-//     clearInterval(losing)
-//     alert("You lose")
-//   }
-// }
-
-// losing = setInterval(loseBall, 250)
-
 
 
 // Adding points to the board
 score = 0
 
-// const pointsGained = () => {
-//   score += 100
-//   scoreNumber.innerHTML = score
-//   if (score === 1400) {
-//     console.log("You win!")
-//     brickFactory2()
-//   }
-// }
+
 
 
 // Player class
@@ -255,17 +194,6 @@ class Player  {
   }
 }
 
-// Starting the game
-
-// const startGame = () => {
-//   attempt = setInterval(ballMovement, 15)
-//   beginBtn.style.display = "none"
-//   launchBtn.style.display = "block"
-// }
-
-// beginBtn.addEventListener("click", startGame)
-
-
 
 
 // Restarting the Ball 
@@ -274,6 +202,7 @@ class Player  {
 const resetBall = () => {
     console.log("reset ball")
   if (theBricks.length > 1) {
+    launchBtn.style.display = "none"
     ballHorizontal = 5
     ballVertical = 4
     ball.classList.add("playBall")
@@ -284,6 +213,7 @@ const resetBall = () => {
     ballsLeft--
     ballNumber.innerHTML = ballsLeft
   } else if (theBricks.length === 0) {
+    launchBtn.style.display = "none"
       ballHorizontal = 5
       ballVertical = 4
       ball.classList.add("playBall")
@@ -342,14 +272,15 @@ const pointsGained = () => {
   score += 100
   scoreNumber.innerHTML = score
   if (score === 1400) {
-    console.log("====================")
+    // console.log("====================")
     clearInterval(attempt)
     ball.classList.remove("playBall")
     brickFactory2()
     levelTwo()
   }
   if (score === 3500) {
-    alert("YOU WIN!!!")
+    alert("You did it " + newName + ", You beat the game!!")
+    ball.classList.remove("playBall")
   }
 }
 
@@ -385,8 +316,6 @@ const contactDetection2 = () => {
     currentPositionBall[0] += ballHorizontal
     currentPositionBall[1] += ballVertical
     contactDetection2()
-    //wallsReact()
-    //userDefense()
   }
 
 
@@ -400,43 +329,60 @@ const contactDetection2 = () => {
   }
 
 
+
+  
+
+  // Response to the ball going be low the user's platform
+
   let losing
 
 
 const loseBall = () => {
   console.log("lose ball")
-  if (currentPositionBall[1] < 0) {
+  if (currentPositionBall[1] < 0 && ballsLeft === 0 && theBricks.length > 0) {
+    clearInterval(attempt)
+    clearInterval(losing)
+    ball.classList.remove("playBall")
+    alert("You lose at level 1 " + newName + "!")
+
+  } else if (currentPositionBall[1] < 0 && ballsLeft === 0) {
+    clearInterval(attempt2)
+    clearInterval(losing)
+    ball.classList.remove("playBall")
+    alert("You lose at level 2 " + newName + "!")
+
+
+  } else if (currentPositionBall[1] < 0 && theBricks.length > 0) {
+    launchBtn.style.display = "block"
     ballHorizontal = 0
     ballVertical = 0
     clearInterval(losing)
     clearInterval(attempt)
     ball.classList.remove("playBall")
-  } if (currentPositionBall[1] < 0 && theBricks.length === 0) {
+
+
+  } else if (currentPositionBall[1] < 0 && theBricks.length === 0) {
+    launchBtn.style.display = "block"
     ballHorizontal = 0
     ballVertical = 0
     clearInterval(losing)
     clearInterval(attempt2)
     ball.classList.remove("playBall")
   } 
-  
-  if (currentPositionBall[1] < 0 && ballsLeft === 0 && theBricks.length > 1) {
-    clearInterval(attempt)
-    clearInterval(losing)
-    alert("You lose!")
-  } else if (currentPositionBall[1] < 0 && ballsLeft === 0 && theBricks2.length > 1) {
-    clearInterval(attempt2)
-    clearInterval(losing)
-    alert("You lose")
-  }
+
 }
 
+
+
+
+
+// Starting the game
 
 
 const startGame = () => {
   attempt = setInterval(ballMovement, 15)
   losing = setInterval(loseBall, 250)
   beginBtn.style.display = "none"
-  launchBtn.style.display = "block"
 }
 
 beginBtn.addEventListener("click", startGame)
